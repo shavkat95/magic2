@@ -1,0 +1,31 @@
+
+
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      PGHOST: localhost
+      PGUSER: postgres
+      PGDATABASE: postgres
+      PGPORT: 5432
+    volumes:
+      - type: bind
+        source: ./db/volume
+        target: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+
