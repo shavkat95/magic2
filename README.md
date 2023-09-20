@@ -3,7 +3,7 @@
 # to start the db: 
 "docker-compose up" 
 while in root-dir
-(with docker installed)
+(with docker installed & running)
 
 # start backend:
 "cd backend"
