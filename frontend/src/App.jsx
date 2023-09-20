@@ -6,6 +6,7 @@ import Footer from "/src/components/Footer.jsx";
 import About from "/src/components/About.jsx";
 import SinglePlace from "/src/components/SinglePlace.jsx";
 import BlogDetails from "/src/components/BlogDetails.jsx";
+import backend_url from "env.js";
 
 function App() {
   const [count, setCount] = useState(0);
