@@ -8,7 +8,7 @@ while in root-dir
 # start backend:
 "cd backend"
 "npm install"
-node app.js
+"node app.js"
 
 # start frontend:
 
