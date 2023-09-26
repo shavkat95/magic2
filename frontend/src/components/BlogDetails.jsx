@@ -1,32 +1,34 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { createClient } from "contentful";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 function BlogDetails() {
   const [singleBlogPosts, setSingleBlogPosts] = useState([]);
-  const client = createClient({
-    space: "uagdxbu69gen",
-    accessToken: "84S6RAOLTOj6erX8CIihN39tOHjBVQyWEuhqbyj9tbk",
-  });
 
   const { id } = useParams();
   console.log(id);
 
-  useEffect(() => {
-    const getEntryById = async () => {
-      try {
-        await client.getEntry(id).then((entries) => {
-          console.log(entries);
-          setSingleBlogPosts(entries);
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getEntryById();
-  }, []);
-  console.log(singleBlogPosts);
+  // useEffect(() => {
+  //   const getEntryById = async () => {
+  //     try {
+  //       await client.getEntry(id).then((entries) => {
+  //         console.log(entries);
+  //         setSingleBlogPosts(entries);
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getEntryById();
+  // }, []);
+
+  useEffect(()=>{
+    axios
+    .get(backend_url+id.toString())
+    .then((response) => setSingleBlogPosts(response.data.items));
+  },[])
+  // console.log(singleBlogPosts);
 
   return (
     <div>

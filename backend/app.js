@@ -1,47 +1,24 @@
-import pkg from 'pg';
-const { Pool, Client } = pkg;
-
-import express from 'express'
+import express from "express";
+import placesRouter from "./routes/placesRouter.js";
 const app = express();
-const PORT = 5000;
+const PORT = 5001;
+import cors from "cors";
 
-// http://localhost:5000/img1.avif
-app.use(express.static('public'));
+const corsConf = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use(cors(corsConf));
 
-app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+// http://localhost:5001/img1.avif
+app.use(express.static("public"));
+app.use("/", placesRouter);
+app.use(express.json()); //?
 
 
-// const pool = new Pool({
-//   user: "postgres",
-//   host: "0.0.0.0",
-//   database: "postgres",
-//   password: "example",
-//   port: 5432,
-// });
-
-// pool.query("SELECT NOW()").then((t) => {
-//   console.log("pool --------------------------------------------------");
-//   console.log(t);
-// });
-
-const client = new Client({
-  user: "postgres",
-  host: "localhost",
-  database: "postgres",
-  password: "example",
-  port: 5432,
-});
-
-client.connect().then(() => {
-  client.query("SELECT NOW()").then((t) => {
-    console.log("client --------------------------------------------------");
-    console.log(t);
-    client.end();
-  });
-});
-
-// console.log(await client.query('SELECT NOW()'))
+app.listen(PORT, "0.0.0.0", () =>
+  console.log(`Server listening on port: ${PORT}`)
+);

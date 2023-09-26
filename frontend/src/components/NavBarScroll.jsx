@@ -7,12 +7,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-function NavBarScroll({ searchQuery, onSearchQueryChange }) {
+function NavBarScroll() {
   /* console.log(searchQuery); */
 
   function mySubmitFunction(e) {
-    e.preventDefault();
-    return false;
+    // e.preventDefault();
+    // setSearchQuery(e.target.value);
+
+    // navigate to /:search
+    window.location.href='/search/'+e.target.value;
+    return true;
   }
 
   return (
@@ -54,17 +58,18 @@ function NavBarScroll({ searchQuery, onSearchQueryChange }) {
               Preview
             </Nav.Link>
           </Nav>
+          {/* todo: on submit navigate to '/:search' */}
           <Form className="d-flex"
-              onsubmit={mySubmitFunction}>
-            <Form.Control
-              type="search"
+              onSubmit={mySubmitFunction}>
+            <input
+              type="text"
               placeholder="Search Country"
               className="me-2"
               aria-label="Search"
-              onsubmit={mySubmitFunction}
+              // onSubmit={mySubmitFunction}
               onChange={(e) => {
                 e.preventDefault();
-                onSearchQueryChange(e.target.value);
+                // setSearchQuery(e.target.value);
               }}
             />
           </Form>
