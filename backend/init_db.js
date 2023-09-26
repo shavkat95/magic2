@@ -1,5 +1,4 @@
 import content from "./content.js";
-
 import pool from "./db/server.js";
 
 let command = `DROP TABLE IF EXISTS places;`;
