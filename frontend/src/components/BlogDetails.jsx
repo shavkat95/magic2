@@ -2,9 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import backend_url from "/env.js";
 
 function BlogDetails() {
-  const [singleBlogPosts, setSingleBlogPosts] = useState([]);
+  const [singleBlogPost, setSingleBlogPost] = useState([]);
 
   const { id } = useParams();
   console.log(id);
@@ -14,7 +15,7 @@ function BlogDetails() {
   //     try {
   //       await client.getEntry(id).then((entries) => {
   //         console.log(entries);
-  //         setSingleBlogPosts(entries);
+  //         setSingleBlogPost(entries);
   //       });
   //     } catch (error) {
   //       console.log(error);
@@ -23,12 +24,37 @@ function BlogDetails() {
   //   getEntryById();
   // }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
-    .get(backend_url+id.toString())
-    .then((response) => setSingleBlogPosts(response.data.items));
-  },[])
-  // console.log(singleBlogPosts);
+      .get(backend_url + "/" + id.toString())
+      .then((response) => setSingleBlogPost(response.data));
+  }, []);
+
+  const work_places = (data) => {
+    let result = [data];
+    let i = 0;
+    for (let place of result) {
+      result[i].fields = {};
+      result[i].fields.img = place.images.split(",")[0];
+      if (result[i].fields.img.startsWith("backend")) {
+        result[i].fields.img = result[i].fields.img.replace(
+          "backend",
+          backend_url
+        );
+      }
+      // console.log(result[i]);
+      i++;
+    }
+    return result;
+  };
+
+  useEffect(() => {
+    console.log("making request to: " + backend_url);
+    axios.get(backend_url + "/" + id.toString()).then((response) => {
+      console.log("\n setting places ...");
+      setSingleBlogPost(work_places(response.data)[0]);
+    });
+  }, []);
 
   return (
     <div>
@@ -38,7 +64,7 @@ function BlogDetails() {
             className="blog-intro"
             style={{
               /* backgroundImage: `url(${place.fields.img})`, */
-              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url(${singleBlogPosts?.fields?.largeImage})`,
+              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url(${singleBlogPost?.large_image})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               width: "100%",
@@ -46,14 +72,14 @@ function BlogDetails() {
               backgroundPosition: "center",
             }}
           >
-            <h1>{singleBlogPosts?.fields?.placeName}</h1>
+            <h1>{singleBlogPost?.name}</h1>
             <div className="first-para">
               <div>
-                <p>Author: {singleBlogPosts?.fields?.author}</p>
+                <p>Author: {singleBlogPost?.author}</p>
               </div>
               <div>
                 <p>
-                  Publishing date: {singleBlogPosts?.fields?.publishingDate}
+                  Publishing date: {singleBlogPost?.created_at}
                 </p>
               </div>
             </div>
@@ -67,14 +93,14 @@ function BlogDetails() {
               marginBottom: "100px",
             }}
           >
-            <p>Ranking: {singleBlogPosts?.fields?.ranking}</p>
-            <p>{singleBlogPosts?.fields?.longIntroduction}</p>
+            <p>Ranking: {singleBlogPost?.ranking}</p>
+            <p>{singleBlogPost?.long_introduction}</p>
             <h2>Things to visit</h2>
-            <p>{singleBlogPosts?.fields?.thingsToVisitRecommended}</p>
+            <p>{singleBlogPost?.things_to_visit}</p>
             <h2>Food must try</h2>
-            <p>{singleBlogPosts?.fields?.foodMustTryRecommended}</p>
+            <p>{singleBlogPost?.food_must_try}</p>
             <h2>How to get around</h2>
-            <p>{singleBlogPosts?.fields?.howToGetAround}</p>
+            <p>{singleBlogPost?.how_to_get_around}</p>
           </div>
         </div>
       </div>

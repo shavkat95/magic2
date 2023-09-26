@@ -26,7 +26,7 @@ export default function HomeNew() {
       if (result[i].fields.img.startsWith('backend')){
         result[i].fields.img = result[i].fields.img.replace('backend', backend_url)
       }
-      console.log(result[i]);
+      // console.log(result[i]);
       i++;
     }
     return result;
