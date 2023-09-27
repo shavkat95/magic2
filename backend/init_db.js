@@ -11,8 +11,8 @@ pool.connect().then(async () => {
   });
 
   command = `CREATE TABLE places (id serial PRIMARY KEY, name VARCHAR(250) NOT NULL, country VARCHAR(56), images VARCHAR(500), large_image VARCHAR(500),\
-   description VARCHAR(2500), lat DECIMAL, lon DECIMAL, author VARCHAR(350), created_at TIMESTAMP DEFAULT NOW(), ranking VARCHAR(50), long_introduction \
-   VARCHAR(5000), best_time VARCHAR(4000), things_to_visit VARCHAR(4000), food_must_try VARCHAR(4000), how_to_get_around VARCHAR(4000))`;
+   description VARCHAR(5000), lat DECIMAL, lon DECIMAL, author VARCHAR(350), created_at TIMESTAMP DEFAULT NOW(), ranking VARCHAR(50), long_introduction \
+   VARCHAR(10000), best_time VARCHAR(10000), things_to_visit VARCHAR(10000), food_must_try VARCHAR(10000), how_to_get_around VARCHAR(10000))`;
 
   await pool.query(command).then((t) => {
     console.log("pool ----------------------------------------------");
