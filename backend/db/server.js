@@ -5,7 +5,7 @@ const { Pool } = pkg;
 // todo: get from process.env
 const pool = new Pool({
   user: "postgres",
-  host: "localhost",
+  host: "127.0.0.1",
   database: "postgres",
   password: "example",
   port: 5432,
