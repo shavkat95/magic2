@@ -1,8 +1,13 @@
 import pool from "../db/server.js";
 
 export const getAllPlaces = async (req, res) => {
+  console.log('\n entering get all places \n');
   const { search } = req.params;
-  if (search && search !== "undefined") await searchPlaces(req, res); // return await ?
+  console.log('\n search:  '+search);
+  if (search && search !== "undefined") {
+    const result =  await searchPlaces(req, res);
+    res.json(result);
+  }
   else {
     let { page } = req.params;
     if (!page) {
@@ -12,7 +17,7 @@ export const getAllPlaces = async (req, res) => {
     }
     try {
       // todo: pagination
-      const result = await pool.query("SELECT * FROM places");
+      const result = await pool.query("SELECT * FROM places ORDER BY id DESC");
       res.json(result.rows);
     } catch (error) {
       res.status(500).json({ message: "something went wrong" });
@@ -21,6 +26,7 @@ export const getAllPlaces = async (req, res) => {
 };
 
 export const getPlaceById = async (req, res) => {
+  console.log('\n entering get by ID places \n');
   const { id } = req.params;
   try {
     const result = await pool.query(`SELECT * FROM places WHERE id = ${id}`);
@@ -31,6 +37,7 @@ export const getPlaceById = async (req, res) => {
 };
 
 const searchPlaces = async (req, res) => {
+  console.log('\n entering search places \n');
   const { search } = req.params;
   let { page } = req.params;
   if (!page) {
@@ -39,11 +46,23 @@ const searchPlaces = async (req, res) => {
     page = page - 1;
   }
   try {
+                // SELECT * FROM tbl
+                // WHERE  string ~ '\mappl';
     // to do:
     // todo: pagination
-    const result = "to-do";
-    res.json(result.rows[0]);
+    const search_lower = search.toLowerCase();
+    const search_upper = search.charAt(0).toUpperCase() + search.slice(1);
+    const result = await pool.query(`SELECT * FROM places WHERE string ~ '\n${search_upper}' OR string ~ '\n${search_lower}'`);
+    console-log('\n - \n');
+    console.log('query: '+`SELECT * FROM places WHERE string ~ '\n${search_upper}' OR string ~ '\n${search_lower}'`);
+    console-log('\n - \n');
+    console.log('result: '+result);
+    console-log('\n - \n');
+    console.log(result);
+    console-log('\n - \n');
+    return result.rows;
   } catch (error) {
-    res.status(500).json({ message: "something went wrong" });
+    console.log(error);
+    return "something went wrong";
   }
 };

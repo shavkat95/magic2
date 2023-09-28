@@ -4,7 +4,6 @@ import "./App.css";
 import HomeNew from "/src/components/HomeNew.jsx";
 import Footer from "/src/components/Footer.jsx";
 import About from "/src/components/About.jsx";
-import SinglePlace from "/src/components/SinglePlace.jsx";
 import BlogDetails from "/src/components/BlogDetails.jsx";
 import backend_url from "/env.js";
 import NavBarScroll from "/src/components/NavBarScroll.jsx";
@@ -24,7 +23,6 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/webdevs" element={<About />} />
           <Route path="/imprint" element={<About />} />
-          <Route path="/place/:id" element={<SinglePlace />} />
           <Route path="/blogDetails/:id" element={<BlogDetails />} />
           {/* <Route path="/details/:id" element={<Details />} /> */}
         </Routes>

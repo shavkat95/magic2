@@ -6,18 +6,20 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useNavigate } from "react-router-dom";
 
 function NavBarScroll() {
-  /* console.log(searchQuery); */
+  const navigate = useNavigate();
 
-  function mySubmitFunction(e) {
-    // e.preventDefault();
-    // setSearchQuery(e.target.value);
+  // function mySubmitFunction(e) {
+  //   // e.preventDefault();
+  //   // setSearchQuery(e.target.value);
 
-    // navigate to /:search
-    window.location.href='/search/'+e.target.value;
-    return true;
-  }
+  //   // navigate to /:search
+  //   console.log(e);
+  //   navigate("/search/" + e.target.value);
+  //   // return true;
+  // }
 
   return (
     <Navbar
@@ -59,8 +61,15 @@ function NavBarScroll() {
             </Nav.Link>
           </Nav>
           {/* todo: on submit navigate to '/:search' */}
-          <Form className="d-flex"
-              onSubmit={mySubmitFunction}>
+          <Form
+            className="d-flex"
+            onSubmit={(e) => {
+              // e.preventDefault();
+              // console.log(e);
+              // console.log(e.target[0].value);
+              navigate("/search/" + e.target[0].value);
+            }}
+          >
             <input
               type="text"
               placeholder="Search Country"
@@ -71,6 +80,7 @@ function NavBarScroll() {
                 e.preventDefault();
                 // setSearchQuery(e.target.value);
               }}
+              
             />
           </Form>
         </Navbar.Collapse>
