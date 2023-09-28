@@ -9,12 +9,11 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
       PGHOST: localhost
-      PGUSER: postgres
       PGDATABASE: postgres
+      PGUSER: postgres
+      POSTGRES_PASSWORD: example
       PGPORT: 5432
-      PG_TRUST_LOCALNET: true
     volumes:
       - type: bind
         source: ./db/volume

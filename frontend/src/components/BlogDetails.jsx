@@ -24,11 +24,11 @@ function BlogDetails() {
   //   getEntryById();
   // }, []);
 
-  useEffect(() => {
-    axios
-      .get(backend_url + "/" + id.toString())
-      .then((response) => setSingleBlogPost(response.data));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(backend_url + "/byID/" + id.toString())
+  //     .then((response) => setSingleBlogPost(response.data));
+  // }, []);
 
   const work_places = (data) => {
     let result = [data];
@@ -50,7 +50,7 @@ function BlogDetails() {
 
   useEffect(() => {
     console.log("making request to: " + backend_url);
-    axios.get(backend_url + "/" + id.toString()).then((response) => {
+    axios.get(backend_url + "/byID/" + id.toString()).then((response) => {
       console.log("\n setting places ...");
       setSingleBlogPost(work_places(response.data)[0]);
     });

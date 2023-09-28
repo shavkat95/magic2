@@ -1,5 +1,7 @@
 import express from "express";
 import placesRouter from "./routes/placesRouter.js";
+import { getOnlyMiddleware } from './middlewares/getOnlyMiddleware.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 const app = express();
 const PORT = 5001;
 import cors from "cors";
@@ -16,8 +18,9 @@ app.use(cors(corsConf));
 // http://localhost:5001/img1.avif
 app.use(express.static("public"));
 app.use("/", placesRouter);
-app.use(express.json()); //?
-
+app.use(express.json());
+app.use(getOnlyMiddleware);
+app.use(errorHandler);
 
 app.listen(PORT, "0.0.0.0", () =>
   console.log(`Server listening on port: ${PORT}`)

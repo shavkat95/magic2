@@ -11,6 +11,7 @@ export default function HomeNew() {
   const [places, setPlaces] = useState([]);
 
   const { search } = useParams();
+  console.log('search: '+search);
 
   // const URL =
   //   "https://cdn.contentful.com/spaces/uagdxbu69gen/environments/master/entries?access_token=84S6RAOLTOj6erX8CIihN39tOHjBVQyWEuhqbyj9tbk&content_type=travellingDestinations";
@@ -33,17 +34,18 @@ export default function HomeNew() {
   }
 
   useEffect(()=>{
+    console.log('search: '+search);
     if (!search) {
       console.log('making request to: '+backend_url);
       axios
-        .get(backend_url)
+        .get(backend_url+'/all')
         .then((response) => {
           console.log('\n setting places ...');
           setPlaces(work_places(response.data));
         });
     } else {
       axios
-        .get(backend_url + "?search=" + search)
+        .get(backend_url+'/search/'+search)
         .then((response) => setPlaces(response.data.items));
     }
   },[])
