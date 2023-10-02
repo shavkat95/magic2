@@ -12,5 +12,7 @@ while in root-dir
 "node app.js"
 
 # start frontend:
-
+set up backend_url in frontend/env.js
+"cd frontend"
+"npm run dev"
 
