@@ -17,7 +17,7 @@ export const getAllPlaces = async (req, res) => {
     }
     try {
       // todo: pagination
-      const result = await pool.query("SELECT * FROM places ORDER BY id DESC");
+      const result = await pool.query("SELECT * FROM places");
       res.json(result.rows);
     } catch (error) {
       res.status(500).json({ message: "something went wrong" });

@@ -1,6 +1,7 @@
 # magic2
 
 # to start the db: 
+"mkdir db/volume"
 "docker-compose up" 
 while in root-dir
 (with docker installed & running)
