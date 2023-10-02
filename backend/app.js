@@ -13,15 +13,15 @@ const corsConf = {
   optionsSuccessStatus: 204
 }
 
-app.use(cors(corsConf));
+app.use(cors());
 
 // http://localhost:5001/img1.avif
 app.use(express.static("public"));
 app.use(express.json());
-app.use(getOnlyMiddleware);
+// app.use(getOnlyMiddleware);
 app.use("/", placesRouter);
-app.use(errorHandler);
+// app.use(errorHandler);
 
-app.listen(PORT, "irtx6ybad1uex0wq.myfritz.net", () =>
+app.listen(PORT, "0.0.0.0", () =>
   console.log(`Server listening on port: ${PORT}`)
 );
